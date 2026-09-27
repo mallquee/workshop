@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roti Pagi — Toko Roti & Kue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7ecd9;
+    --card:#fffaf1;
+    --text:#2b1a12;
+    --muted:#7a6350;
+    --crust:#2b1a12;
+    --wheat:#c98a2b;
+    --oven:#a13d24;
+    --line:#e0cba6;
+    font-family:"Work Sans",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1b120c;
+      --card:#271c14;
+      --text:#f3e6d3;
+      --muted:#c3ab8e;
+      --line:#3d2c1e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1b120c;
+    --card:#271c14;
+    --text:#f3e6d3;
+    --muted:#c3ab8e;
+    --line:#3d2c1e;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:64px;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .display{font-family:"Fraunces",serif;}
+
+  /* nav */
+  nav{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:14px 6vw;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .brand{font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;letter-spacing:.2px;}
+  nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0;font-size:.92rem;}
+  nav ul a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;}
+  nav ul a:hover{border-color:var(--wheat);}
+  nav .wa{
+    background:var(--oven);color:#fff;padding:9px 16px;border-radius:8px;
+    text-decoration:none;font-size:.88rem;font-weight:500;white-space:nowrap;
+  }
+  @media(max-width:680px){ nav ul{display:none;} }
+
+  /* hero */
+  .hero{
+    padding:9vh 6vw 8vh;
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:40px;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{color:var(--oven);font-size:.95rem;margin:0 0 14px;}
+  .hero h1{
+    font-size:clamp(2.4rem,5vw,3.6rem);
+    line-height:1.05;
+    margin:0 0 20px;
+    font-weight:600;
+  }
+  .hero h1 em{font-style:italic;color:var(--wheat);}
+  .hero p.lead{
+    font-size:1.08rem;
+    color:var(--muted);
+    max-width:46ch;
+    line-height:1.6;
+    margin:0 0 28px;
+  }
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:13px 22px;border-radius:8px;
+    text-decoration:none;font-weight:500;font-size:.95rem;
+  }
+  .btn.primary{background:var(--crust);color:var(--bg);}
+  .btn.ghost{border:1px solid var(--line);color:var(--text);}
+  .hero-panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px;
+  }
+  .hero-panel h3{margin:0 0 14px;font-size:.85rem;color:var(--muted);font-weight:500;}
+  .hours-row{
+    display:flex;justify-content:space-between;
+    padding:8px 0;border-bottom:1px dashed var(--line);
+    font-size:.94rem;
+  }
+  .hours-row:last-child{border-bottom:none;}
+  .hours-row .d{color:var(--muted);}
+  .hours-row .status{color:var(--oven);font-weight:600;}
+
+  section{padding:7vh 6vw;max-width:1100px;margin:0 auto;}
+  .section-head{max-width:56ch;margin-bottom:34px;}
+  .section-head .kicker{color:var(--oven);font-size:.92rem;margin:0 0 8px;}
+  .section-head h2{font-family:"Fraunces",serif;font-size:1.9rem;font-weight:600;margin:0;}
+
+  /* menu */
+  .menu-cat{margin-bottom:40px;}
+  .menu-cat h3{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+    font-size:1.25rem;color:var(--wheat);margin:0 0 4px;
+  }
+  .menu-cat .cat-note{color:var(--muted);font-size:.88rem;margin:0 0 16px;}
+  .menu-row{
+    display:flex;align-items:baseline;gap:10px;
+    padding:14px 0;border-bottom:1px solid var(--line);
+  }
+  .menu-row .info{flex:1;min-width:0;}
+  .menu-row .name{font-weight:600;font-size:1.02rem;}
+  .menu-row .desc{color:var(--muted);font-size:.88rem;margin-top:2px;}
+  .menu-row .leader{
+    flex:1;border-bottom:1px dotted var(--line);
+    margin-bottom:6px;min-width:20px;
+  }
+  .menu-row .price{
+    font-family:"Fraunces",serif;font-weight:600;white-space:nowrap;
+  }
+  @media(max-width:600px){
+    .menu-row{flex-wrap:wrap;}
+    .menu-row .leader{display:none;}
+    .menu-row .price{margin-left:auto;}
+  }
+
+  /* profile */
+  .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .profile-grid p{color:var(--muted);line-height:1.7;margin:0 0 16px;}
+  .values{list-style:none;padding:0;margin:0;}
+  .values li{
+    padding:16px 0;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;
+  }
+  .values li:last-child{border-bottom:1px solid var(--line);}
+  .values .mark{font-family:"Fraunces",serif;font-style:italic;color:var(--wheat);font-size:1.1rem;}
+  .values .body h4{margin:0 0 4px;font-size:1rem;}
+  .values .body p{margin:0;font-size:.9rem;color:var(--muted);}
+  @media(max-width:760px){.profile-grid{grid-template-columns:1fr;}}
+
+  /* location */
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .loc-card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:28px;
+  }
+  .loc-card h3{margin:0 0 16px;font-family:"Fraunces",serif;font-size:1.2rem;font-weight:600;}
+  .loc-card address{font-style:normal;color:var(--muted);line-height:1.7;margin-bottom:18px;}
+  .loc-map{
+    height:180px;border-radius:10px;margin-bottom:18px;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 22px, color-mix(in srgb, var(--wheat) 25%, transparent) 23px),
+      repeating-linear-gradient(90deg, transparent, transparent 22px, color-mix(in srgb, var(--wheat) 25%, transparent) 23px),
+      var(--bg);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--oven);font-family:"Fraunces",serif;font-style:italic;
+  }
+  .contact-list{list-style:none;padding:0;margin:0;}
+  .contact-list li{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:12px 0;border-bottom:1px solid var(--line);font-size:.95rem;
+  }
+  .contact-list li:last-child{border-bottom:none;}
+  .contact-list .k{color:var(--muted);}
+  .contact-list a{text-decoration:underline;text-decoration-color:var(--line);}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:30px 6vw calc(30px + env(safe-area-inset-bottom,0px));
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:.85rem;color:var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Roti Pagi</span>
+  <ul>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#profil">Profil Toko</a></li>
+    <li><a href="#lokasi">Lokasi</a></li>
+  </ul>
+  <a class="wa" href="https://wa.me/6281234567890?text=Halo%20Roti%20Pagi%2C%20saya%20mau%20tanya%20menu" target="_blank" rel="noopener">Pesan via WhatsApp</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">Toko roti & kue rumahan</p>
+    <h1 class="display">Dipanggang setiap subuh,<br>disajikan <em>hangat</em> tiap hari.</h1>
+    <p class="lead">Roti Pagi membuat roti, pastry, dan kue dari adonan yang diproofing semalaman dan dipanggang fresh setiap pagi — tanpa pengawet, secukupnya untuk hari itu saja.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#menu">Lihat Menu & Harga</a>
+      <a class="btn ghost" href="#lokasi">Cara ke Toko</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <h3>JAM BUKA</h3>
+    <div class="hours-row"><span class="d">Senin – Jumat</span><span>06.00 – 20.00</span></div>
+    <div class="hours-row"><span class="d">Sabtu – Minggu</span><span>06.00 – 21.00</span></div>
+    <div class="hours-row"><span class="d">Hari besar</span><span class="status">Tetap buka</span></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="section-head">
+    <p class="kicker">Menu & Harga</p>
+    <h2>Apa yang kami panggang hari ini</h2>
+  </div>
+
+  <div class="menu-cat">
+    <h3>Roti Tawar & Roti Sobek</h3>
+    <p class="cat-note">Adonan proofing 18 jam, dipanggang pagi hari</p>
+    <div class="menu-row"><div class="info"><div class="name">Roti Tawar Gandum</div><div class="desc">Lembut berserat, cocok untuk sarapan</div></div><div class="leader"></div><div class="price">Rp18.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Roti Sobek Coklat Keju</div><div class="desc">Isian coklat dan keju melimpah</div></div><div class="leader"></div><div class="price">Rp22.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Roti Sobek Original</div><div class="desc">Empuk dan wangi mentega</div></div><div class="leader"></div><div class="price">Rp20.000</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <h3>Roti Manis</h3>
+    <p class="cat-note">Favorit anak-anak dan bekal kantor</p>
+    <div class="menu-row"><div class="info"><div class="name">Roti Abon Mayo</div><div class="desc">Gurih dan creamy</div></div><div class="leader"></div><div class="price">Rp9.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Roti Pisang Coklat</div><div class="desc">Pisang matang dengan coklat leleh</div></div><div class="leader"></div><div class="price">Rp8.500</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Roti Boy Mocca</div><div class="desc">Topping mocca renyah di atasnya</div></div><div class="leader"></div><div class="price">Rp10.000</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <h3>Pastry & Viennoiserie</h3>
+    <p class="cat-note">Berlapis mentega, dipanggang tiap pagi dalam jumlah terbatas</p>
+    <div class="menu-row"><div class="info"><div class="name">Croissant Butter</div><div class="desc">Renyah di luar, lembut berlapis di dalam</div></div><div class="leader"></div><div class="price">Rp15.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Pain au Chocolat</div><div class="desc">Croissant isi coklat batang ganda</div></div><div class="leader"></div><div class="price">Rp17.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Danish Keju</div><div class="desc">Lembut dengan cream cheese asam segar</div></div><div class="leader"></div><div class="price">Rp16.000</div></div>
+  </div>
+
+  <div class="menu-cat">
+    <h3>Kue & Pesanan Custom</h3>
+    <p class="cat-note">Pemesanan H-2 untuk kue custom</p>
+    <div class="menu-row"><div class="info"><div class="name">Brownies Panggang</div><div class="desc">Cokelat pekat, fudgy, per loyang</div></div><div class="leader"></div><div class="price">Rp45.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Banana Cake</div><div class="desc">Pisang asli, tanpa pengawet, per loyang</div></div><div class="leader"></div><div class="price">Rp38.000</div></div>
+    <div class="menu-row"><div class="info"><div class="name">Tart Ulang Tahun Custom</div><div class="desc">Desain dan rasa sesuai permintaan</div></div><div class="leader"></div><div class="price">Mulai Rp175.000</div></div>
+  </div>
+</section>
+
+<section id="profil">
+  <div class="section-head">
+    <p class="kicker">Profil Toko</p>
+    <h2>Dari dapur rumah ke etalase toko</h2>
+  </div>
+  <div class="profile-grid">
+    <div>
+      <p>Roti Pagi mulai dari dapur rumah pada 2019, membuat roti untuk tetangga sekitar. Kini kami punya satu toko kecil, tetapi cara kerja tidak berubah: adonan dibuat manual, diproofing semalaman, dan dipanggang secukupnya untuk hari itu saja.</p>
+      <p>Kami tidak menyimpan stok untuk besok. Kalau menu tertentu habis, artinya memang sudah waktunya pulang dan istirahat — bukan tanda toko kami kurang siap.</p>
+    </div>
+    <ul class="values">
+      <li><span class="mark">01</span><div class="body"><h4>Bahan sederhana</h4><p>Tepung, ragi, gula, garam, mentega — tanpa pengawet dan pelunak tambahan.</p></div></li>
+      <li><span class="mark">02</span><div class="body"><h4>Dipanggang harian</h4><p>Semua item dipanggang di hari yang sama, dalam jumlah terbatas.</p></div></li>
+      <li><span class="mark">03</span><div class="body"><h4>Dibuat manual</h4><p>Diuleni dan dibentuk tangan, bukan produksi massal dengan mesin.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="lokasi">
+  <div class="section-head">
+    <p class="kicker">Lokasi & Kontak</p>
+    <h2>Datang langsung atau pesan dulu</h2>
+  </div>
+  <div class="loc-grid">
+    <div class="loc-card">
+      <h3>Alamat Toko</h3>
+      <div class="loc-map">peta lokasi</div>
+      <address>
+        Jl. Kenanga Raya No. 24<br>
+        Kel. Sidorejo, Yogyakarta 55281<br>
+        Jawa Tengah, Indonesia
+      </address>
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Jl.+Kenanga+Raya+No.+24+Yogyakarta" target="_blank" rel="noopener">Buka di Google Maps</a>
+    </div>
+    <div class="loc-card">
+      <h3>Hubungi Kami</h3>
+      <ul class="contact-list">
+        <li><span class="k">WhatsApp</span><a href="https://wa.me/6281234567890" target="_blank" rel="noopener">0812-3456-7890</a></li>
+        <li><span class="k">Instagram</span><a href="https://instagram.com/roti.pagi" target="_blank" rel="noopener">@roti.pagi</a></li>
+        <li><span class="k">Email</span><a href="mailto:halo@rotipagi.id">halo@rotipagi.id</a></li>
+        <li><span class="k">Jam Buka</span><span>06.00 – 20.00 (Sab-Min s/d 21.00)</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Roti Pagi. Semua roti dipanggang segar setiap hari.</span>
+  <span>Dibuat dengan ❤️ untuk pecinta roti</span>
+</footer>
+
+</body>
+</html>
